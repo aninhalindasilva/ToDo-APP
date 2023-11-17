@@ -4,7 +4,10 @@ const exphbs = require("express-handlebars")
 const app = express()
 
 app.engine("handlebars", exphbs.engine())
-app.set("view egnore", "handlebars")
+app.set("view engine", "handlebars")
+app.set('view egnire', 'html')
+
+app.use(express.static('public'))
 
 app.get('/', (requisicao, resposta) => {
     resposta.render('home')
