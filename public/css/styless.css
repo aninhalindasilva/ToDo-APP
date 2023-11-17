@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+:root{
+    --bg--header-mobile: url(../img/bg-header-mobile-light.png.png);
+}
+
+:root{
+    --bg-header-mobile:var(--bg--header-mobile)
+}
+
+header{
+    background-image: var(--bg-header-mobile);
+}
