@@ -7,19 +7,26 @@
 
 :root{
     --bg--header-mobile: url(../img/bg-header-mobile-light.png.png);
+    --bg-header-descktop: url(..img/imagem/fundo/claro/grande.png);
     --input-box-shadow: rgba(194, 195, 214, 0.50);
     --input-color: #494C6B;
+    --placeholder-color:#9495a5;
     --button-color: #494c6b;
+    --button-color-hover:#494C6B;
     --bg-body: #FAFAFA; 
     --bg-tarefas: #fff;
     --box-shadow: 0px 35px 50px -15px rgba(194, 195, 214, 0.50);
     --border-color: #e3e4f1;
     --text-color: #494C6B;
     --info-text-color:#9495A5;
+    --info-button-hover:#494C6B; 
+    --info-button-active:#3a7cfd;
+    
 }
 
 :root{
-    --bg-header-mobile:var(--bg--header-mobile)
+    --bg-header-mobile:var(--bg--header-mobile);
+    --bg-header-descktop:var(--bg-header-descktop);
 }
 
 body{
@@ -69,6 +76,10 @@ header form input {
     color: var(--input-color);
 }
 
+header form input::paceholder{
+    color: var(--placeholder-color);
+}
+
 header form button{
     padding: 0.75rem;
     border-radius: 0.3125rem;
@@ -78,7 +89,6 @@ header form button{
 }
 
 main{
-    min-height: calc(100vh - 12.5rem);
     padding-inline: 1.75rem;
 }
 
@@ -87,17 +97,17 @@ main{
     box-shadow: var(--box-shadow);
     border-radius: 0.3125rem;
     margin-top: -1rem;
-    max-height: 33.75rem;
+    max-width: 33.75rem;
     margin-inline: auto;
+}
+
+.tarefas .tarefa {
+    padding: 1rem 1.25rem;
 }
 
 .tarefas .tarefa + .tarefa {
     border-top: 1px solid var(--border-color);
 
-}
-
-.tarefas .tarefa {
-    padding: 1rem 1.25rem;
 }
 
 .tarefa form {
@@ -153,7 +163,44 @@ main{
     font-size: 0.875rem;
 }
 
+.botoes .active{
+    color:var(--info-button-active) ;
+}
+
 @media(min-width: 1000px){
+    header{
+        height: 18.75rem;
+        padding-top: 4.37rem;
+    }
+
+    header div div{
+        margin-bottom: 3rem;
+    }
+
+    header form input{
+        padding: 1.25rem 1.5rem;
+        font-size: 1.125rem;
+    }
+
+    header form button{
+        font-size: 1.125rem;
+    }
+
+    header form button:hover{
+        cursor:pointer;
+        background:var(--button-color-hover) ;
+
+    }
+    .tarefas{
+        margin-top: -3rem;
+    }
+
+    .tarefas .tarefa {
+        padding: 1.25rem 1.5rem;
+    }
+    .tarefa div {
+        font-size: 1.125rem;
+    }
     selection.botoes{
         display: none;
     }
@@ -162,7 +209,14 @@ main{
         display: flex;
         padding: 0;
         margin: 0;
-        
+    }
+
+    .informacoes{
+        font-size: 0.875rem; ;
+    }
+
+    .informacoes a:hover{
+        color: var(--info-button-hover);
     }
 
     .tarefa button {
@@ -179,5 +233,7 @@ main{
         visibility: initial;
 
     }
+    
+
 }
 
