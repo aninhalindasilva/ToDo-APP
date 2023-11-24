@@ -10,6 +10,31 @@ app.set('view egnire', 'html')
 
 app.use(express.static('public'))
 
+app.use(express.urlencoded({
+    extended: true
+}))
+
+app.use(express.json())
+
+app.post('/criar', (requisicao, resposta) => {
+    const descricao = requisicao.body.descricao  
+
+    const completa = 0
+
+    const sql = `
+        INSERT INTO tarefas(descricao, completa )
+        VALUES  ('${descricao}', '${completa}')
+    `
+
+    conecao.query(sql, (erro) => {
+        if (erro) {
+            return console.log (erro)
+        }
+
+        resposta.redirect("home")
+    })
+})
+
 app.get('/', (requisicao, resposta) => {
     resposta.render('home')
 })

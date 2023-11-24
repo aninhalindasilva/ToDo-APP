@@ -37,7 +37,7 @@ function verificarTema() {
             button.innerHTML = `<img src="/img/sol certo.png" alt="Ícone do sol">`;
         } else {
             body.classList.add("light");
-            button.innerHTML = `<img src="../img/lua1.png" alt="Ícone de lua">`;
+            button.innerHTML = `<img src="/imagens/moon-icon.png" alt="Icone de lua">`;
         }
     }
 }
