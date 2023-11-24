@@ -14,8 +14,24 @@ app.get('/', (requisicao, resposta) => {
     resposta.render('home')
 })
 
-app.listen(3000, () => {
-    console.log("Servidor rodando na porta 300!")
+const conecao = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "todooapp",
+    port:3306
+})
+
+conecao.connect((erro) => {
+    if (erro) {
+        return console.log(erro)
+    }
+
+    console.log("estou conectado ao mysql")
+
+    app.listen(3000, () => {
+        console.log("servidor rodando na porta 300!")
+    })
 })
 
 
