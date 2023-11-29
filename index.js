@@ -2,14 +2,12 @@ const express = require("express")
 const exphbs = require("express-handlebars")
 const mysql = require("mysql2")
 
-
 const app = express()
 
 app.engine('handlebars', exphbs.engine())
-app.set('view engine', 'handlebars')
+app.set("view engine", "handlebars")
 
-app.use(express.static('public'))
-
+app.use(express.static("public"))
 
 app.use(express.urlencoded({
     extended: true
@@ -17,92 +15,112 @@ app.use(express.urlencoded({
 
 app.use(express.json())
 
-app.post('/completar' , (requisicao, resposta) =>{
+//rotas
+app.post('/excluir', (requisicao,resposta) => {
     const id = requisicao.body.id
 
     const sql = `
-        UPDATE tarefas
-        SET completa = "1"
+        DELETE FROM tarefas
         WHERE id = ${id}
     `
 
     conecao.query(sql, (erro) => {
-        if (erro) {
-        return console.log(erro)
-    }
+        id (erro) 
+            return console.log (erro)
+        
+
+        resposta.redirect('/')
+    })
+})
+
+app.post('/completar', (requisicao, resposta) => {
+    const id = requisicao.body.id
+
+    const sql = `
     
-    resposta.redirect('/')
-    })
-})
-
-app.post('/descompletar', (requisicao, resposta) =>{
-    const id = requisicao.body.id
-
-    const sql = `
-        UPDATE tarefas
-        SET completa = '0'
-        WHERE id = ${id}
+    UPDATE tarefas
+    SET completa = '1'
+    WHERE id = ${id}
     `
-
-    conecao.query(sql, (erro) =>{
-        if (erro) {
-            return console.log(erro)
-        }
-
-        resposta.redirect('/')
-    })
-})
-
-app.post('/criar',(requisicao, resposta) => {
-    const tarefasacol1 = requisicao.body.descricao
-
-    const tarefascol3 = 0
-
-    const sql= `
-        INSERT INTO tarefas(tarefascol1, tarefascol3)
-        VALUES  ('${tarefasacol1}', '${tarefascol3}')
-`
 
     conecao.query(sql, (erro) => {
-        if (erro) {
-            return console.log(erro)
-        }
-
-        resposta.redirect('/')
-    })
-})
-
-app.get('/completas', (requisicao, resposta) => {
-    const sql = `
-        SELECT = FROM * tarefas
-        WHERE completa =1
-    `
-    conecao.query(sql,(erro,dados) =>{
         if (erro){
             return console.log(erro)
         }
 
+        resposta.redirect('/')
+    } )
+})
+
+app.post ('/descompletar', (requisicao, resposta) => {
+    const id = requisicao.body.id 
+
+    const sql = `
+    UPDATE tarefas
+    SET completa = '0'
+    WHERE id = ${id}
+    `
+
+    conecao.query(sql, (erro) => {
+        if (erro) {
+            return console.log(erro)
+        }
+
+        resposta.redirect('/')
+    })
+
+})
+
+app.post('/criar', (requisicao, resposta) => {
+    const tarefascol1 = requisicao.body.tarefascol1
+
+    const tarefascol3 = 0
+
+    const sql = `
+    INSERT INTO tarefas(descricao, completa)
+    VALUES('${tarefascol1}', '${tarefascol3}' ) `
+
+    conecao.query(sql, (erro) => {
+        if (erro){
+            return console.log(erro)
+        }
+
+        resposta.redirect('/')
+    })
+
+})
+
+app.get('/completas', (requisicao, resposta) => {
+    const sql = `
+    SELECT * FROM tarefas
+    WHERE completa = '1'
+    `
+    conecao.query(sql, (erro, dados) => {
+        if (erro){
+            return console.log(erro)
+        }
         const tarefas = dados.map((dado) => {
-            return{
-                id:dado.id,
+            return {
+                id: dado.id,
                 descricao: dado.descricao,
                 completa: true
             }
         })
-
         const quantidadeTarefas = tarefas.length
 
-        resposta.render('completas', {tarefas, quantidadeTarefas })
+        resposta.render('completas', {tarefas, quantidadeTarefas})
     })
 })
 
+
+
 app.get('/ativas', (requisicao, resposta) =>{
     const sql = `
-    SELCT * FROM tarefas
-    WHERE completas = 0
+    SELECT * FROM tarefas
+    WHERE completas = '0'
     `
 
-    conecao.query(sql, (erro,dados) => {
+    conecao.query(sql, (erro, dados) => {
         if (erro) {
             return console.log(erro)
         }
@@ -121,33 +139,34 @@ app.get('/ativas', (requisicao, resposta) =>{
     })
 })
 
-app.get('/',(requisicao, resposta) => {
+app.get('/' , (requisicao, resposta) => {
     const sql = 'SELECT * FROM tarefas'
 
-    conecao.query(sql,(erro,dados) => {
-        if (erro){
+    conecao.query(sql, (erro, dados) => {
+        if (erro) {
             return console.log(erro)
         }
 
-        const tarefas = dados.map((dado) =>{
-            return{
-                id:dado.id,
+        const tarefas = dados.map((dado) => {
+            return {
+                id: dado.id,
                 descricao: dado.descricao,
                 completa: dado.completa === 0 ? false : true
             }
         })
 
-        const tarefasAtivas = tarefas.filter((tarefa) =>{
-            return tarefa.completa === false && tarefa
+        const tarefasAtivas = tarefas.filter((tarefa) => {
+            return tarefa.tarefasacol3 === false && tarefa
         })
 
-        const quantiadeTarefaAtivas = tarefasAtivas.length
+        const quantidadeTarefasAtivas = tarefasAtivas.length
 
-        resposta.render('home', {tarefas, quantiadeTarefaAtivas})
+
+        resposta.render('home' , { tarefas, quantidadeTarefasAtivas })
     })
 
-})
 
+})
 
 const conecao = mysql.createConnection({
     host: "localhost",

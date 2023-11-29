@@ -1,25 +1,36 @@
 function completarTarefa(id) {
     fetch("http://localhost:3000/completar", {
         method: "POST",
-         headers: {
+        headers: {
             'Content-Type': 'application/json'
-         },
-         body: JSON.stringify({ id })
+        },
+        body: JSON.stringify({ id })
     })
 
     window.location.reload()
 }
 
 function descompletarTarefa(id){
-    fetch("http://localhost:3000/descompletar",{
+    fetch("http://localhost:3000/descompletar", {
         method: "POST",
         headers: {
-            'Contend-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({ id })
     })
 
     window.location.reload()
+
+}
+
+function excluirTarefa(id){
+    fetch("http://localhost:3000/excluir", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id })
+    }) 
 }
 
 function alterarTema() {
@@ -29,6 +40,8 @@ function alterarTema() {
 
     if (tema) {
         let novoTema;
+
+
 
         if (tema === "light") {
             novoTema = "dark";

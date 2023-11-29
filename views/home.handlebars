@@ -5,22 +5,22 @@
                 <form action="">
                     {{#if this.completa}}
                     <div class="completa">
-                        <input type="checkbox" id="tarefa-{{this.id}}" checked onchange="descompletarTarefas{{this.id}}">
-                        <label for="tarefa-{{this.id}}">{{this.descricao}}</label> 
+                        <input type="checkbox" id="tarefa-{{this.id}}" checked onchange="descompletarTarefa({{this.id}})">
+                        <label for="tarefa-{{this.id}}">{{this.descricao}}</label>
+                       
                     </div>
-                        {{else}}
-                      <div>
-                        <input type="checkbox" id="tarefa-{{this.id}}" onchange="completartTArefa{{this.id}}">
+                    {{else}}
+                    <div>
+                        <input type="checkbox" id="tarefa-{{this.id}}" onchange="completarTarefa({{this.id}})">
                         <label for="tarefa-{{this.id}}">{{this.descricao}}</label> 
                     </div>
                     {{/if}}
 
-            <button>
+            <button onclick="excluirTarefa({{this.id}})">
                 <img src="/img/x-icon.png" alt="Ícone de X para excluir uma tarefa">
             </button>
             </form>
         </div>
-
         {{/each}}
         <div class="informacoes">
             <p>{{quantidadeTarefasAtivas}}</p>
