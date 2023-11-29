@@ -28,7 +28,6 @@ app.post('/excluir', (requisicao,resposta) => {
         id (erro) 
             return console.log (erro)
         
-
         resposta.redirect('/')
     })
 })
